@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
 
+  before_filter :lookup_article, :only => [:show, :edit, :destroy, :update]
   def index
     @articles = Article.all
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def new
@@ -19,18 +19,20 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    Article.distroy(params[:id])
+    @article.distroy
     redirect_to articles_path
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    article = Article.find(params[:id]) 
-    article.update_attributes(params[:article])
-    article.save
-    redirect_to article_path(article)
+    @article.update_attributes(params[:article])
+    @article.save
+    redirect_to article_path(@article)
+  end
+
+  def lookup_article
+    @article = Article.find(params[:id])
   end
 end
