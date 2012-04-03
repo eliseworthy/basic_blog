@@ -1,0 +1,12 @@
+<h1><%= @article.title %></h1>
+<p>
+  <%= @article.body %>
+</p>
+
+<%= link_to "edit!", edit_article_path(@article)%>
+
+<%=link_to "destroy!", article_path(@article),
+  :method => :delete,
+  :confirm => "Delete \"#{@article.title}\"?" %>
+
+<%=link_to "Back to All Articles", articles_path, :id => "articles-index", :class => "link" %>
